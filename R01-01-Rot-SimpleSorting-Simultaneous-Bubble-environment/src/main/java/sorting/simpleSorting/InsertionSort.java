@@ -14,7 +14,7 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 		if(leftIndex > rightIndex || array == null || array.length == 0 || array.length < rightIndex || leftIndex > array.length) return;	
 		
-		for(int i = leftIndex + 1; i < rightIndex; i++) {
+		for(int i = leftIndex + 1; i < rightIndex + 1; i++) {
 			int j = i;
 			while(j > leftIndex && array[j].compareTo(array[j - 1]) < 0) {
 				swap(array, j , j - 1);
