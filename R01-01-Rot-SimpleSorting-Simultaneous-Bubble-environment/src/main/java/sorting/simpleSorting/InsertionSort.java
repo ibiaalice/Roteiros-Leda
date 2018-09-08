@@ -10,36 +10,23 @@ import sorting.AbstractSorting;
  */
 public class InsertionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
-	@Override //feito
-	public void sort(T[] array, int leftIndex, int rightIndex) {
-		if(leftIndex > rightIndex || array == null || array.length == 0 || array.length < rightIndex || leftIndex > array.length) return;	
-		
-		for(int i = leftIndex + 1; i < rightIndex + 1; i++) {
-			int j = i;
-			while(j > leftIndex && array[j].compareTo(array[j - 1]) < 0) {
-				swap(array, j , j - 1);
-			}
-			
-			
-			
-		}
-	}//fdm
-	
-	/**
-	 * Método de troca de elementos
-	 * 
-	 * @param array lista de elementos a serem trocados
-	 * @param i     primeiro indice
-	 * @param j     segundo indice
-	 */
-	private void swap(T[] array, int i, int j) {
+   @Override
+   //feito
+   public void sort(T[] array, int leftIndex, int rightIndex) {
+      if (leftIndex > rightIndex || array == null || array.length == 0 || array.length < rightIndex
+            || leftIndex > array.length)
+         return;
 
-		T aux = array[i];
-		array[i] = array[j];
-		array[j] = aux;
+      for (int i = leftIndex + 1; i <= rightIndex; i++) {
+         T aux = array[i];
+         int j = i - 1;
+         while (j >= leftIndex && array[j].compareTo(aux) > 0) {
+            array[j + 1] = array[j];
+            j--;
+         }
+         array[j + 1] = aux;
 
-	}
-	
-	
-	
+      }
+   }//fdm
+
 }

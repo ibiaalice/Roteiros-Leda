@@ -1,5 +1,5 @@
 package sorting.simpleSorting;
-
+import util.Util;
 import sorting.AbstractSorting;
 
 /**
@@ -14,10 +14,10 @@ public class BubbleSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		
 		if(leftIndex > rightIndex || array == null || array.length == 0 || array.length < rightIndex || leftIndex > array.length) return;
 		
-		for (int j = leftIndex; j < rightIndex + 1; j++) {
-			for (int i = leftIndex; i < rightIndex + 1; i++) {
+		for (int j = leftIndex; j < rightIndex; j++) {
+			for (int i = leftIndex; i < rightIndex; i++) {
 				if (array[i].compareTo(array[i + 1]) > 0) {
-					swap(array, i, i + 1);
+					Util.swap(array, i, i + 1);
 				}
 			}
 		}
