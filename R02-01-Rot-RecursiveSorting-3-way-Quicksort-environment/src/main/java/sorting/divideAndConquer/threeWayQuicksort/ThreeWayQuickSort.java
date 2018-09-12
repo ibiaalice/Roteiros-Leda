@@ -1,7 +1,7 @@
 package sorting.divideAndConquer.threeWayQuicksort;
 
 import sorting.AbstractSorting;
-
+import util.Util;
 public class ThreeWayQuickSort<T extends Comparable<T>> extends
 		AbstractSorting<T> {
 
@@ -25,8 +25,34 @@ public class ThreeWayQuickSort<T extends Comparable<T>> extends
 	 **/
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		 if (leftIndex > rightIndex || array == null || array.length == 0 || array.length < rightIndex || leftIndex > array.length) {
+			 return;
+		 } 
+		 
+		 int[] pivots = particiona(array, leftIndex, rightIndex);
+	     sort(array, leftIndex, pivots[0] - 1);
+	     sort(array, pivots[1] + 1, rightIndex);
+	      
+	   }
+
+	   public int[] particiona(T[] array, int leftIndex, int rightIndex) {
+	      int pivot = rightIndex;
+	      int maiores = rightIndex - 1;
+	      int[] posPivots = { leftIndex, leftIndex };
+	  
+	      for (posPivots[1] = leftIndex; posPivots[1] <= maiores; posPivots[1]++) {
+	         if (array[posPivots[1]].compareTo(array[pivot])> 0) {
+	            Util.swap(array, posPivots[1], maiores);
+	            posPivots[1]--;
+	            maiores--;
+	         } else if (array[posPivots[1]].compareTo(array[pivot]) < 0) {
+	            Util.swap(array, posPivots[0], posPivots[1]);
+	            posPivots[0]++;
+	         }
+	      }
+	      Util.swap(array, pivot, posPivots[1]);
+	      return posPivots;
+	   }
 	}
 
-}
+
