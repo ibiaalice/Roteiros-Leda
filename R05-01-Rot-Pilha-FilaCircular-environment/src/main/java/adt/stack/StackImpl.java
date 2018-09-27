@@ -35,6 +35,7 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public T pop() throws StackUnderflowException {
+		if(isEmpty()) throw new StackUnderflowException();
 		T aux = array[top];
 		top -= 1;
 		return aux;

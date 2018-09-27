@@ -32,8 +32,8 @@ public class StudentStackTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		stack1 = null;
-		stack2 = null;
+		stack1 = new StackImpl<>(3);
+		stack2 = new StackImpl<>(2);
 		stack3 = null;
 	}
 
@@ -49,7 +49,8 @@ public class StudentStackTest {
 	}
 
 	@Test
-	public void testIsFull() {
+	public void testIsFull() throws StackUnderflowException {
+		stack1.pop();
 		assertFalse(stack1.isFull()); // vai depender do tamanho que a pilha foi
 										// iniciada!!!!
 	}
@@ -82,6 +83,10 @@ public class StudentStackTest {
 
 	@Test(expected = StackUnderflowException.class)
 	public void testPopComErro() throws StackUnderflowException {
+		stack1.pop();
+		stack1.pop();
+		stack1.pop();
+		
 		assertEquals(new Integer(3), stack1.pop()); // levanta excecao apenas se
 													// stack1 for vazia
 	}
