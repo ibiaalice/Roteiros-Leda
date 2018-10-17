@@ -1,8 +1,12 @@
-package adt.hashtable.closed;
+ package adt.hashtable.closed;
+
+import java.util.LinkedList;
 
 import adt.hashtable.hashfunction.HashFunction;
+import adt.hashtable.hashfunction.HashFunctionClosedAddress;
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
+import util.Util;
 
 public class HashtableClosedAddressImpl<T> extends AbstractHashtableClosedAddress<T> {
 
@@ -50,32 +54,63 @@ public class HashtableClosedAddressImpl<T> extends AbstractHashtableClosedAddres
     * prime.
     */
    int getPrimeAbove(int number) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
+	   while (!Util.isPrime(number)) number++;
+	   return number;
    }
 
    @Override
    public void insert(T element) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
+	   if (element != null && this.search(element) == null) {
+			int code = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
+			
+			if (super.table[code] != null) {
+				this.COLLISIONS++;
+			} 
+			else super.table[code] = new LinkedList<>();
+			
+			((LinkedList<T>) super.table[code]).add(element);
+			super.elements++;
+		}
+	   
    }
 
    @Override
    public void remove(T element) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
+	   
+	   if (this.search(element) != null) {
+			int indice = this.indexOf(element);
+			LinkedList<T> linked = (LinkedList<T>) super.table[indice];	
+			if (linked.size() > 1) super.COLLISIONS--;
+			
+			linked.remove(element);
+			super.elements--;
+		}
    }
 
    @Override
    public T search(T element) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
+	   T search = null;
+		
+		if (element != null) {
+			
+			int code = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
+			LinkedList<T> list = ((LinkedList<T>) super.table[code]);
+			
+			if (list != null && list.contains(element)) search = element;
+			
+		}
+		
+		return search;
    }
 
    @Override
    public int indexOf(T element) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
+	   int indice = -1;
+		
+		if (this.search(element) != null) 
+			indice = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
+		
+		return indice;
    }
 
 }
